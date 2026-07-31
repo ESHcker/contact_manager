@@ -1,2 +1,3 @@
-# contact_manager
+# Contact Manager
 Simple contact manager using Flask
+
