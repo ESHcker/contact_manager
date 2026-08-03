@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Add contact{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" placeholder="Pepa Luzardo Sánchez"><br>
+        <label for="phone">Phone:</label><br>
+        <input type="tel" id="phone" name="phone" placeholder="928345687" pattern="[0-9]{9}" required><br>
+        <label for="notes">Notes:</label><br>
+        <textarea id="notes" name="notes" placeholder="Add comments or other things"></textarea><br>
+        <input type="submit" id="submit" value="Save">
+    </form>
+{% endblock %}
