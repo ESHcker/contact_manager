@@ -7,4 +7,11 @@
 {% block content %}
     <h3>Contact manager for all!</h3>
     <p>Simple contact manager created to learn Flask.</p>
+    {% for contact in contacts %}
+        <p>Name: {{ contact["name"] }}</p>
+        <p>Phone: {{ contact["phone"] }}</p>
+        <p>Notes: {{ contact["notes"] }}</p>
+        </br>
+    {% endfor %}
+
 {% endblock %}

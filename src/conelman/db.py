@@ -1,16 +1,17 @@
+from flask import current_app
 from flask_sqlalchemy_lite import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import String
+from .models import Base,Contact
 
-#Base class
-class Base(DeclarativeBase):
-    pass
+db = SQLAlchemy()
 
-#contacts table
-class contacts(Base):
-    __tablename__= "contacts"
+def init_db(app):
+    db.init_app(app)
+    with app.app_context():
+        Base.metadata.create_all(db.engine)
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(unique=True)
-    phone: Mapped[int] = mapped_column()
-    notes: Mapped[str] = mapped_column()
+def get_db():
+    return db
+    
+
+    
+
