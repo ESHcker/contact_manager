@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from flask_sqlalchemy_lite import SQLAlchemy
-from . import contacts,db
+from . import contacts,db,auth
 
 
 def create_app(test_config=None):
@@ -25,5 +25,8 @@ def create_app(test_config=None):
     #Add url rule for root page
     app.register_blueprint(contacts.bp)
     app.add_url_rule('/', endpoint='index')
+
+    #Add auth blueprint
+    app.register_blueprint(auth.bp)
         
     return app
