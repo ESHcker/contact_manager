@@ -8,6 +8,10 @@ from . import contacts,db,auth
 def create_app(test_config=None):
     #Create app and put engine of sqlalchemy
     app = Flask(__name__)
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'conelman.sqlite'),
+    )
     app.config["SQLALCHEMY_ENGINES"] = {"default": "sqlite:///db.sqlite3"}
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     

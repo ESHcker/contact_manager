@@ -9,7 +9,7 @@ bp = Blueprint('contacts', __name__)
 
 @bp.route("/")
 def index():
-    #Add logic when user is logged
+    #ADD logic when user is logged
     database = db.get_db()
     contacts = database.session.scalars(select(Contact))
     return render_template('contacts/index.html', contacts = contacts)
