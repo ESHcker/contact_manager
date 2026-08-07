@@ -8,10 +8,14 @@
 </head>
 <nav>
     <h1><a id="logo" href="/">Conelman</a></h1>
+    {% if not g.user %}
     <ul>
         <li><a href="{{ url_for('auth.register') }}">Sign up</a>
-        <li><a href="">Log in</a>
+        <li><a href="{{ url_for('auth.login') }}">Log in</a>
     </ul>
+    {% else %}
+        <a href="{{ url_for('auth.logout') }}">Log out</a>
+    {% endif %}
 </nav>
 <body>
     <section class="content">

@@ -2,6 +2,7 @@ from flask import current_app
 from flask_sqlalchemy_lite import SQLAlchemy
 from .models import Base,Contact
 
+#Variable that contain database for execute sentences
 db = SQLAlchemy()
 
 def init_db(app):

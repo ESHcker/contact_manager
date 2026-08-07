@@ -16,6 +16,7 @@ class Contact(Base):
     notes: Mapped[Optional[str]] = mapped_column(default="")
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
+#User table model
 class User(Base):
     __tablename__ = "user"
     id: Mapped[int] = mapped_column(primary_key = True, autoincrement= True)

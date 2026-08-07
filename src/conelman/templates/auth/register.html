@@ -9,7 +9,7 @@
         <label for="username">Name:</label><br>
         <input type="text" id="username" name="username" placeholder="pelucabonita2" required><br>
         <label for="password">Password:</label><br>
-        <input type="text" id="password" name="password" placeholder="For security reasons, min 11 characters" required><br>
+        <input type="password" id="password" name="password" placeholder="For security reasons, min 11 characters" required><br>
         <input type="submit" id="submit" value="Save">
         {% for message in get_flashed_messages() %}
             <div class="flash">{{ message }}</div>
