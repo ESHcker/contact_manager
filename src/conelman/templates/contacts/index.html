@@ -5,13 +5,17 @@
 {% endblock %}
 
 {% block content %}
-    <h3>Contact manager for all!</h3>
-    <p>Simple contact manager created to learn Flask.</p>
-    {% for contact in contacts %}
-        <p>Name: {{ contact["name"] }}</p>
-        <p>Phone: {{ contact["phone"] }}</p>
-        <p>Notes: {{ contact["notes"] }}</p>
-        </br>
-    {% endfor %}
+    {% if g.user %}
+        <a class="btn "href=" {{ url_for('contacts.add') }}">Add contact</a>
+        {% for contact in contacts %}
+            <p>Name: {{ contact["name"] }}</p>
+            <p>Phone: {{ contact["phone"] }}</p>
+            <p>Notes: {{ contact["notes"] }}</p>
+            </br>
+        {% endfor %}
+    {% else %}
+        <h3>Contact manager for all!</h3>
+        <p>Simple contact manager created to learn Flask.</p>
+    {% endif %}
 
 {% endblock %}

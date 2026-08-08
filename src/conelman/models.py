@@ -11,7 +11,7 @@ class Contact(Base):
     __tablename__= "contact"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    name: Mapped[str] = mapped_column(unique=True)
+    name: Mapped[str]
     phone: Mapped[int] = mapped_column(unique=True)
     notes: Mapped[Optional[str]] = mapped_column(default="")
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))

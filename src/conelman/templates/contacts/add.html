@@ -13,5 +13,9 @@
         <label for="notes">Notes:</label><br>
         <textarea id="notes" name="notes" placeholder="Add comments or other things"></textarea><br>
         <input type="submit" id="submit" value="Save">
+        {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
     </form>
+    
 {% endblock %}
