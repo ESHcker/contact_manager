@@ -14,6 +14,7 @@
                 <p>Phone: {{ contact["phone"] }}</p>
                 <p>Notes: {{ contact["notes"] }}</p>
                 <a class="action" href="{{ url_for('contacts.edit', contact_id=contact['id']) }}">Edit</a>
+                <a class="action delete" href="{{ url_for('contacts.delete', contact_id=contact['id']) }}">Delete</a>
             </div>
             {% endfor %}
         </div>

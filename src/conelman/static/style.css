@@ -256,6 +256,9 @@ tr:hover {
     background-color: #0056b3;
 }
 
+.contact a.action.delete{
+    background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+}
 
 .contacts-container {
     display: flex;

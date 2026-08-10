@@ -39,7 +39,7 @@ def add():
 
     return render_template('contacts/add.html')
 
-def get_contact_id(contact_id):
+def get_contact(contact_id):
     database = db.get_db()
     contact = database.session.scalars(select(Contact, User.username).join(User, Contact.user_id == User.id).where(Contact.id == contact_id)).first()
 
@@ -55,7 +55,7 @@ def get_contact_id(contact_id):
 @bp.route("/contact/<int:contact_id>/edit", methods = ('GET','POST'))
 @login_required
 def edit(contact_id):
-    contact = get_contact_id(contact_id)
+    contact = get_contact(contact_id)
 
     if request.method == 'POST':
         name = request.form['name']
@@ -72,8 +72,10 @@ def edit(contact_id):
 
 @bp.route("/contacts/<int:contact_id>/delete")
 @login_required
-def delete():
-    phone = request.form["phone"]
+def delete(contact_id):
     database = db.get_db()
+    contact = get_contact(contact_id)
 
+    database.session.delete(contact)
+    database.session.commit()
     return redirect(url_for('index'))
