@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Edit contact '{{ contact['name'] }}'{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+     <form method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" 
+        value="{{ request.form['name'] or contact['name'] }}" required><br>
+        <label for="phone">Phone:</label><br>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{9}"
+        value="{{ request.form['phone'] or contact['phone'] }}" required><br>
+        <label for="notes">Notes:</label><br>
+        <textarea id="notes" name="notes">{{ request.form['notes'] or contact['notes'] }}</textarea><br>
+        <input type="submit" id="submit" value="Save">
+        {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
+    </form>
+{% endblock %}

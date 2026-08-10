@@ -21,7 +21,6 @@ def register():
         error = None
         
         try:   
-            #ADD hash for password later
             database.session.add(User(username = username, password = generate_password_hash(password)))
             database.session.commit()
         except IntegrityError:

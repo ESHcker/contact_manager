@@ -6,7 +6,7 @@ from . import contacts,db,auth
 
 
 def create_app(test_config=None):
-    #Create app and config enviorement variables
+    #Create app and config environment variables
     app = Flask(__name__)
     app.config.from_mapping(
         SECRET_KEY='dev',

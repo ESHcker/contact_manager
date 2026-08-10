@@ -2,16 +2,17 @@ from flask import (
     Blueprint, render_template, request, g, redirect, url_for, flash
 )
 from conelman.auth import login_required
-from sqlalchemy import select
+from sqlalchemy import select,update
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import joinedload
 from . import db
-from .models import Contact
+from .models import Contact, User
+from werkzeug.exceptions import abort
 
 bp = Blueprint('contacts', __name__)
 
 @bp.route("/")
 def index():
-    #ADD logic when user is logged
     database = db.get_db()
     contacts = None
 
@@ -37,3 +38,42 @@ def add():
             return redirect(url_for('contacts.index'))
 
     return render_template('contacts/add.html')
+
+def get_contact_id(contact_id):
+    database = db.get_db()
+    contact = database.session.scalars(select(Contact, User.username).join(User, Contact.user_id == User.id).where(Contact.id == contact_id)).first()
+
+    if contact is None:
+        abort(404, f"Contact id {contact_id} doesn't exist.")
+    
+    if contact.user_id != g.user.id:
+        abort(403)
+
+    return contact
+
+
+@bp.route("/contact/<int:contact_id>/edit", methods = ('GET','POST'))
+@login_required
+def edit(contact_id):
+    contact = get_contact_id(contact_id)
+
+    if request.method == 'POST':
+        name = request.form['name']
+        phone = request.form['phone']
+        notes = request.form['notes']
+        database = db.get_db()
+
+        database.session.merge(Contact(id= contact_id, name = name, phone = phone, notes = notes,user_id = g.user.id))
+        database.session.commit()
+        return redirect(url_for("contacts.index"))
+            
+    return render_template('contacts/edit.html', contact = contact)
+
+
+@bp.route("/contacts/<int:contact_id>/delete")
+@login_required
+def delete():
+    phone = request.form["phone"]
+    database = db.get_db()
+
+    return redirect(url_for('index'))
