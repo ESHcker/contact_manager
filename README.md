@@ -1,3 +1,3 @@
 # Contact Manager
-Simple contact manager using Flask
+Simple contact manager using Flask to learn it
 
