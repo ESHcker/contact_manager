@@ -1,4 +1,5 @@
 [project]
+<<<<<<< HEAD
 name = "conelman"
 version = "1.0.0"
 description = "Simple contact manager with flask"
@@ -7,10 +8,21 @@ authors = [
 ]
 readme = "README.md"
 requires-python = "yes"
+=======
+name = "Conelman"
+version = "1.0.0"
+description = "Simple contact manager with flask"
+readme = "README.md"
+authors = [
+    { name = "ESHcker", email = "274484520+ESHcker@users.noreply.github.com" }
+]
+requires-python = ">=3.14"
+>>>>>>> 4ff67c8 (Add uv to manage project)
 dependencies = [
     "asgiref==3.12.1",
     "blinker==1.9.0",
     "click==8.4.2",
+<<<<<<< HEAD
     "Flask==3.1.3",
     "Flask-SQLAlchemy-Lite==0.2.1",
     "greenlet==3.5.4",
@@ -20,9 +32,27 @@ dependencies = [
     "SQLAlchemy==2.0.51",
     "typing_extensions==4.16.0",
     "Werkzeug==3.1.8"
+=======
+    "flask==3.1.3",
+    "flask-sqlalchemy-lite==0.2.1",
+    "greenlet==3.5.5",
+    "itsdangerous==2.2.0",
+    "jinja2==3.1.6",
+    "markupsafe==3.0.3",
+    "pytest>=9.1.1",
+    "sqlalchemy==2.0.52",
+    "typing-extensions==4.16.0",
+    "uv==0.12.5",
+    "werkzeug==3.1.8",
+>>>>>>> 4ff67c8 (Add uv to manage project)
 ]
 
 
 [build-system]
+<<<<<<< HEAD
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+=======
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
+>>>>>>> 4ff67c8 (Add uv to manage project)
