@@ -10,10 +10,9 @@ def create_app(test_config=None):
     app = Flask(__name__)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'conelman.sqlite'),
+        SQLALCHEMY_ENGINES={"default": "sqlite:///db.sqlite3"},
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )
-    app.config["SQLALCHEMY_ENGINES"] = {"default": "sqlite:///db.sqlite3"}
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     #Load the instance config, if it exists, when not testing
     if test_config is None:

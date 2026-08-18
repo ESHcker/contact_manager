@@ -19,15 +19,19 @@ def register():
         password = request.form['password']
         database = db.get_db()
         error = None
-        
-        try:   
-            database.session.add(User(username = username, password = generate_password_hash(password)))
-            database.session.commit()
-        except IntegrityError:
-            error = f"Username {username} is already registered"
+
+        if not username:
+            error = f"Username is required"
+        elif not password:
+            error = f"Password is required"
         else:
-            return redirect(url_for("auth.login"))
-        
+            try:   
+                database.session.add(User(username = username, password = generate_password_hash(password)))
+                database.session.commit()
+            except IntegrityError:
+                error = f"Username {username} is already registered"
+            else:
+                return redirect(url_for("auth.login"))
         flash(error)
     #When arent sending form, visualize register page
     return render_template('auth/register.html')
