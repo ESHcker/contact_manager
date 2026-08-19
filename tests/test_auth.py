@@ -17,7 +17,9 @@ def test_register(client,app):
 
     with app.app_context():
         assert get_db().session.scalars(
-                select(User).where(User.username == 'test')
+                select(User).where(
+                    User.username == 'test'
+                )
         ).first() is not None
 
 @pytest.mark.parametrize(('username', 'password', 'message'),(

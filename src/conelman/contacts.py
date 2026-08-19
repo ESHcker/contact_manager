@@ -8,6 +8,7 @@ from sqlalchemy.orm import joinedload
 from . import db
 from .models import Contact, User
 from werkzeug.exceptions import abort
+import re
 
 bp = Blueprint('contacts', __name__)
 
@@ -20,7 +21,7 @@ def index():
         contacts = database.session.scalars(select(Contact).where(Contact.user_id == g.user.id))
     return render_template('contacts/index.html', contacts = contacts)
 
-@bp.route("/contacts/add", methods=('POST', 'GET'))
+@bp.route("/contact/add", methods=('POST', 'GET'))
 @login_required
 def add():
     if request.method == "POST":
@@ -28,14 +29,22 @@ def add():
         phone = request.form["phone"]
         notes = request.form["notes"]
         database = db.get_db()
+        match = re.search(r'^\d{9}$', phone)
+        error = ""
 
-        try:
-            database.session.add(Contact(name = name, phone = phone, notes = notes, user_id = g.user.id))
-            database.session.commit()
-        except IntegrityError:
-            flash(f"The number is already registered.")
+        if not name:
+            error = "Empty name."
+        elif not phone or not match:
+            error = "Invalid number."
         else:
-            return redirect(url_for('contacts.index'))
+            try:
+                database.session.add(Contact(name = name, phone = phone, notes = notes, user_id = g.user.id))
+                database.session.commit()
+            except IntegrityError:
+                error = f"The number is already registered."
+            else:
+                return redirect(url_for('contacts.index'))
+        flash(error)
 
     return render_template('contacts/add.html')
 
@@ -70,7 +79,7 @@ def edit(contact_id):
     return render_template('contacts/edit.html', contact = contact)
 
 
-@bp.route("/contacts/<int:contact_id>/delete")
+@bp.route("/contact/<int:contact_id>/delete")
 @login_required
 def delete(contact_id):
     database = db.get_db()
