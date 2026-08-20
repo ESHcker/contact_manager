@@ -70,12 +70,20 @@ def edit(contact_id):
         name = request.form['name']
         phone = request.form['phone']
         notes = request.form['notes']
+        match = re.search(r'^\d{9}$', phone)
         database = db.get_db()
+        error = ""
 
-        database.session.merge(Contact(id= contact_id, name = name, phone = phone, notes = notes,user_id = g.user.id))
-        database.session.commit()
-        return redirect(url_for("contacts.index"))
-            
+        if not name:
+            error = f"Invalid name."
+        elif not phone or not match:
+            error = f"Invalid number."
+        else:
+            database.session.merge(Contact(id= contact_id, name = name, phone = phone, notes = notes,user_id = g.user.id))
+            database.session.commit()
+            return redirect(url_for("contacts.index"))
+        flash(error)
+
     return render_template('contacts/edit.html', contact = contact)
 
 

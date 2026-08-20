@@ -24,7 +24,10 @@ def client(app):
 @pytest.fixture
 def seed_user(app, client):
     with app.app_context():
-        user_test = User(username='test',password=generate_password_hash('test'))
+        user_test = User(
+            username='test',
+            password=generate_password_hash('test')
+        )
         get_db().session.add(user_test)
         get_db().session.commit()
 
@@ -33,7 +36,12 @@ def seed_user(app, client):
 @pytest.fixture
 def seed_contacts(app, client):
     with app.app_context():
-        contact_test = Contact(name = 'illojuan', phone = '928247364', notes="streamer", user_id = 1)
+        contact_test = Contact(
+            name = 'illojuan', 
+            phone = '928247364', 
+            notes="streamer", 
+            user_id = 1
+        )
         get_db().session.add(contact_test)
         get_db().session.commit()
     
@@ -47,7 +55,11 @@ class AuthActions(object):
     def login(self, username='test', password='test'):
         return self._client.post(
             '/auth/login',
-            data={'username': username, 'password': password}
+            data=
+            {
+                'username': username, 
+                'password': password
+            }
         )
 
     def logout(self):
